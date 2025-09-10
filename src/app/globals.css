@@ -119,6 +119,34 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground scroll-smooth;
+    
+  }
+}
+
+
+@layer components{
+  .text-icon-wrapper:hover .animate-nav-icon{
+
+    animation: bell-ring 2s   alternate-reverse forwards ;
+    transition: animation .3s ease-in-out;
+  }
+}
+
+@keyframes bell-ring {
+  0%{
+    transform: scale(1.2) translate(0px) rotate(-1deg);
+  }
+  25%{
+    transform: scale(1.1) translate(-1px) rotate(1deg);
+  }
+  50%{
+    transform: scale(1.2) translate(0px) rotate(-1deg);
+  }
+  75%{
+    transform: scale(1.1) translate(-1px) rotate(1deg);
+  }
+  100%{
+    transform: scale(1.2) translate(0px) rotate(-1deg);
   }
 }
