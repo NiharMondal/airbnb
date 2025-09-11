@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bell, Globe, Home, Lightbulb, Search } from "lucide-react";
 import { Button } from "../ui/button";
@@ -18,13 +18,24 @@ export default function Navbar() {
 	const [isExpanded, setIsExpanded] = useState(false);
 
 	useEffect(() => {
-		const onScroll = () => setIsScrolled(window.scrollY > 40);
+		const onScroll = () => {
+			if (window.scrollY > 60) {
+				setIsScrolled(true);
+			} else {
+				setIsScrolled(false);
+				setIsExpanded(false); // reset expansion when top
+			}
+		};
 		window.addEventListener("scroll", onScroll, { passive: true });
 		return () => window.removeEventListener("scroll", onScroll);
 	}, [isScrolled]);
 
-	const slotWidth = "w-64 sm:w-80 md:w-96";
-
+	const handleSearchClick = () => {
+		if (isScrolled) {
+			setIsExpanded(true);
+		}
+		setIsScrolled(false);
+	};
 	return (
 		<header className="sticky top-0 bg-[#fbfbfb] px-5 lg:px-12 z-50 ">
 			{/* First row */}
@@ -39,13 +50,13 @@ export default function Navbar() {
 					<div>
 						<AnimatePresence initial={false} mode="wait">
 							{/* when NOT scrolled => show original middle content */}
-							{!isScrolled && (
+							{!isScrolled && !isExpanded && (
 								<motion.div
 									key="middleNav"
 									variants={{
 										initial: {
 											opacity: 0,
-											y: 0,
+											y: -10,
 										},
 										animate: {
 											opacity: 1,
@@ -58,7 +69,7 @@ export default function Navbar() {
 										},
 										exit: {
 											opacity: 0,
-											y: 0,
+											y: -10,
 
 											transition: {
 												duration: 0.18,
@@ -114,10 +125,11 @@ export default function Navbar() {
 							)}
 
 							{/* when scrolled => show the moving search (same layoutId used below) */}
-							{isScrolled && (
+							{isScrolled && !isExpanded && (
 								<motion.div
 									layoutId="centerMover"
 									key="compactSearch"
+									onClick={handleSearchClick}
 									variants={{
 										initial: {
 											opacity: 0,
@@ -148,8 +160,14 @@ export default function Navbar() {
 									className="flex justify-center"
 								>
 									<div className="w-full sm:w-sm  bg-white rounded-full h-10 shadow ">
-										<div className="flex items-center justify-between divide-x-2 divide-gray-400 text-base font-medium h-full px-3 py-1">
-											<div className="flex items-center px-5">
+										<div className="flex items-center justify-between divide-x-2 divide-gray-400 text-base font-medium h-full px-3 py-1 cursor-pointer">
+											<div className="flex items-center px-2">
+												<Image
+													src={imageHelper.home}
+													width={20}
+													height={20}
+													alt="home"
+												/>
 												Anywhere
 											</div>
 											<div className="flex items-center px-5">
@@ -204,7 +222,7 @@ export default function Navbar() {
 			</div>
 
 			{/* Second row - reserve height so layout won't jump */}
-			<SecondRow isScrolled={isScrolled} />
+			<SecondRow isScrolled={isScrolled} isExpanded={isExpanded} />
 		</header>
 	);
 }

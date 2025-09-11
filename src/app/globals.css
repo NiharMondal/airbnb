@@ -131,6 +131,12 @@
     animation: bell-ring 2s   alternate-reverse forwards ;
     transition: animation .3s ease-in-out;
   }
+
+
+    .slick-slider .slick-track{
+      display: flex !important;
+      column-gap: 10px !important;
+    }
 }
 
 @keyframes bell-ring {

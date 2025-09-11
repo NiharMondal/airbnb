@@ -14,6 +14,7 @@ import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 type SecondRowProps = {
 	isScrolled: boolean;
+	isExpanded: boolean;
 };
 type GuestState = {
 	adults: number;
@@ -48,7 +49,8 @@ function reducer(state: GuestState, action: Action): GuestState {
 }
 
 type PopoverKey = "where" | "checkIn" | "checkOut" | "guests" | null;
-export default function SecondRow({ isScrolled }: SecondRowProps) {
+
+export default function SecondRow({ isScrolled, isExpanded }: SecondRowProps) {
 	const [date, setDate] = React.useState<Date | undefined>(new Date());
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const [openPopover, setOpenPopover] = useState<PopoverKey>(null);
@@ -56,13 +58,17 @@ export default function SecondRow({ isScrolled }: SecondRowProps) {
 	const handleOpenChange = (key: PopoverKey, isOpen: boolean) => {
 		setOpenPopover(isOpen ? key : null);
 	};
+
+	const handleSearch = () => {
+		console.log("clicked");
+	};
 	return (
-		<div className="flex justify-center">
+		<div className="flex justify-center pb-5">
 			<div className={"w-full sm:w-lg md:w-xl lg:w-4xl"}>
 				<AnimatePresence initial={false} mode="wait">
 					{/* only show this in the second-row when NOT scrolled.
                 Notice same layoutId "centerMover" → framer morphs it between parents */}
-					{!isScrolled && (
+					{(!isScrolled || isExpanded) && (
 						<motion.div
 							layoutId="centerMover"
 							key="secondSearch"
@@ -252,7 +258,7 @@ export default function SecondRow({ isScrolled }: SecondRowProps) {
 									>
 										<PopoverTrigger
 											className={cn(
-												"text-left h-full px-10 rounded-full transition-colors",
+												"text-left h-full px-5 rounded-full transition-colors",
 												openPopover === "guests"
 													? "bg-white shadow"
 													: "hover:bg-accent"
@@ -269,9 +275,20 @@ export default function SecondRow({ isScrolled }: SecondRowProps) {
 												</div>
 												<Button
 													asChild
-													className="size-12 rounded-full"
+													className={cn(
+														"duration-300",
+														openPopover
+															? "flex-1 h-12 rounded-full"
+															: "size-12 rounded-full"
+													)}
+													onClick={handleSearch}
 												>
-													<Search />
+													<span className="inline-flex items-center">
+														<Search />
+														{openPopover
+															? "Search"
+															: ""}
+													</span>
 												</Button>
 											</div>
 										</PopoverTrigger>

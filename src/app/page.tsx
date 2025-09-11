@@ -1,12 +1,9 @@
-import Navbar from "@/components/common/navbar";
-import { div } from "framer-motion/client";
-import Image from "next/image";
+import Hotels from "@/components/common/hotels";
 
 export default function Home() {
 	return (
-		<div>
-			<div className="min-h-screen"></div>
-			<div className="min-h-screen"></div>
+		<div className="bg-white relative py-8">
+			{/* <Hotels title="Popular homes in Dhaka district" /> */}
 		</div>
 	);
 }
