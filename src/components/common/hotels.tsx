@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Slider from "react-slick";
 import { Button } from "../ui/button";
 import HotelCard from "./hotel-card";
+import Container from "./container";
 
 type HotelProps = {
 	title: string;
@@ -57,7 +58,7 @@ export default function Hotels({ title }: HotelProps) {
 		],
 	};
 	return (
-		<div className="px-5 lg:px-10 xl:px-16 ">
+		<Container>
 			<div className="flex items-center justify-between">
 				<p className="text-xl font-semibold">{title}</p>
 				<CustomArrows
@@ -79,7 +80,7 @@ export default function Hotels({ title }: HotelProps) {
 					<HotelCard />
 				</Slider>
 			</div>
-		</div>
+		</Container>
 	);
 }
 

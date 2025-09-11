@@ -166,7 +166,7 @@ export default function Footer() {
 						className="hover:no-underline text-secondary-foreground cursor-pointer flex items-center "
 					>
 						<DollarSign className="mt-0.5" />
-						<span>English (US)</span>
+						<span>USD</span>
 					</Button>
 					<div className="flex gap-x-3">
 						<Button className="bg-transparent hover:bg-accent text-gray-800 size-8 rounded-full">
