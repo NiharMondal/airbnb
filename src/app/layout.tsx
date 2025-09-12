@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/common/navbar";
+import Navbar from "@/components/navbar/navbar";
 
 // react slick css
 import "slick-carousel/slick/slick.css";
@@ -10,6 +10,7 @@ import Footer from "@/components/common/footer";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
+	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 	subsets: ["latin"],
 });
 
@@ -33,7 +34,7 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				{/* <Navbar /> */}
+				<Navbar />
 				{children}
 				<Footer />
 			</body>
