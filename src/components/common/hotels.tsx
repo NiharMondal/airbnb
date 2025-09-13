@@ -35,6 +35,13 @@ export default function Hotels({ title }: HotelProps) {
 				},
 			},
 			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 6,
+					slidesToScroll: 1,
+				},
+			},
+			{
 				breakpoint: 1025,
 				settings: {
 					slidesToShow: 5,
@@ -58,7 +65,7 @@ export default function Hotels({ title }: HotelProps) {
 		],
 	};
 	return (
-		<Container>
+		<Container className="py-5">
 			<div className="flex items-center justify-between">
 				<p className="text-xl font-semibold">{title}</p>
 				<CustomArrows
