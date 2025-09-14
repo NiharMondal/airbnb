@@ -1,23 +1,11 @@
-import { Search, X } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
 import { imageHelper } from "@/assets/images/images";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { CustomModal } from "../common/custom-modal";
 import MobileBottom from "./mobile-bottom-fixed-part";
 
-import AnimatedNavLink from "../ui/animated-navlink";
-import { Button } from "../ui/button";
 import MobileNavbarModal from "./mobile-navbar-modal";
 export default function MobileNavbar() {
 	const pathname = usePathname();

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { hosts } from "@/helping-data/navbar.helper";
 
 import Image from "next/image";
-import { Card, CardContent, CardTitle } from "../ui/card";
-import { Button } from "../ui/button";
+import { Card, CardContent, CardTitle } from "../../ui/card";
+import { Button } from "../../ui/button";
 import { cn } from "@/lib/utils";
 export default function ChoosingHost() {
 	const [selected, setSelected] = useState("");

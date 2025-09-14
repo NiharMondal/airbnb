@@ -1,0 +1,75 @@
+{
+  "Navbar":{
+    "home": "Home",
+    "service":"Service",
+    "experience":"Experience",
+    "rightSide":{
+      "become-a-host":"Become a host",
+      "help-center":{
+        "index":"Help Center",
+        "become-a-host":"Become a host",
+        "short-info":"It's easy to start hosting and earn money",
+        "refer-host":"Refer a host",
+        "cohost":"Find a co-host",
+        "gift-cards":"Gift cards",
+        "login-signup":"Log in or Sign up"
+
+      }
+    }
+  },
+  "SecondRow":{
+    "where":"Where",
+    "placeholder":"Search your destination",
+    "checkIn":"Check in",
+    "checkOut":"Check out",
+    "who": "Who",
+    "checkInOutDescription":"Add dates",
+    "guest":"Add guests"
+
+  },
+  "SecondScrolledRow":{
+    "anytime":"Anytime",
+    "anywhere":"Anywhere",
+    "add-guests":"Add guests"
+  },
+  
+  "FooterLinks": [
+    {
+      "title": "Support",
+      "links": [
+        "Help Center",
+        "Get help with a safety issue",
+        "AirCover",
+        "Anti-discrimination",
+        "Cancellation options",
+        "Disability support",
+        "Report neighborhood"
+      ]
+    },
+    {
+      "title": "Hosting",
+      "links": [
+        "Help Center",
+        "Get help with a safety issue",
+        "AirCover",
+        "Anti-discrimination",
+        "Cancellation options",
+        "Disability support",
+        "Report neighborhood"
+      ]
+    },
+    {
+      "title": "Airbnb",
+      "links": [
+        "Help Center",
+        "Get help with a safety issue",
+        "AirCover",
+        "Anti-discrimination",
+        "Cancellation options",
+        "Disability support",
+        "Report neighborhood"
+      ]
+    }
+  ]
+
+}

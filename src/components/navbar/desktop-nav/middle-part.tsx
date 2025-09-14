@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { imageHelper } from "@/assets/images/images";
+import { useTranslations } from "next-intl";
 
 export default function MiddlePart() {
+	const t = useTranslations("Navbar");
 	return (
 		<motion.div
 			key="middleNav"
@@ -25,7 +27,7 @@ export default function MiddlePart() {
 					alt="home"
 					className="animate-nav-icon"
 				/>
-				<span>Home</span>
+				<span>{t("home")}</span>
 			</Link>
 			<Link
 				href={"/experiences"}
@@ -38,7 +40,7 @@ export default function MiddlePart() {
 					alt="experience"
 					className="animate-nav-icon"
 				/>
-				<span>Experience</span>
+				<span>{t("experience")}</span>
 			</Link>
 			<Link
 				href={"/services"}
@@ -51,7 +53,7 @@ export default function MiddlePart() {
 					alt="service"
 					className="animate-nav-icon"
 				/>
-				<span>Service</span>
+				<span>{t("service")}</span>
 			</Link>
 		</motion.div>
 	);

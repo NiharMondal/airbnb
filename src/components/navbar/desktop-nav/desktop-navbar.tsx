@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Logo from "../common/logo";
+import Logo from "../../common/logo";
 import SecondRow from "./second-row";
 import ScrolledSecondRow from "./scrolled-second-row";
 import MiddlePart from "./middle-part";

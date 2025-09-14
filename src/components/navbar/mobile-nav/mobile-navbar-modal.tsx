@@ -10,15 +10,15 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { imageHelper } from "@/assets/images/images";
-import AnimatedNavLink from "../ui/animated-navlink";
-import { Button } from "../ui/button";
+import AnimatedNavLink from "../../ui/animated-navlink";
+import { Button } from "../../ui/button";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Calendar } from "../ui/calendar";
+import { Calendar } from "../../ui/calendar";
 
 export default function MobileNavbarModal() {
 	const [open, setOpen] = useState(true);

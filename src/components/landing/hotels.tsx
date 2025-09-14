@@ -2,9 +2,9 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useRef } from "react";
 import Slider from "react-slick";
-import { Button } from "../ui/button";
+import Container from "../common/container";
 import HotelCard from "./hotel-card";
-import Container from "./container";
+import { Button } from "../ui/button";
 
 type HotelProps = {
 	title: string;
@@ -28,21 +28,14 @@ export default function Hotels({ title }: HotelProps) {
 		swipeToSlide: true,
 		responsive: [
 			{
-				breakpoint: 1441,
+				breakpoint: 1440,
 				settings: {
-					slidesToShow: 7,
+					slidesToShow: 8,
 					slidesToScroll: 1,
 				},
 			},
 			{
 				breakpoint: 1024,
-				settings: {
-					slidesToShow: 6,
-					slidesToScroll: 1,
-				},
-			},
-			{
-				breakpoint: 1025,
 				settings: {
 					slidesToShow: 5,
 					slidesToScroll: 1,
@@ -65,7 +58,7 @@ export default function Hotels({ title }: HotelProps) {
 		],
 	};
 	return (
-		<Container className="py-5">
+		<Container className="py-5 ">
 			<div className="flex items-center justify-between">
 				<p className="text-xl font-semibold">{title}</p>
 				<CustomArrows
@@ -74,7 +67,11 @@ export default function Hotels({ title }: HotelProps) {
 				/>
 			</div>
 			<div className="slider-container mt-3">
-				<Slider ref={sliderRef} {...settings}>
+				<Slider
+					ref={sliderRef}
+					{...settings}
+					className="overflow-hidden pr-2"
+				>
 					<HotelCard />
 					<HotelCard />
 					<HotelCard />

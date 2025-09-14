@@ -2,145 +2,34 @@ import React from "react";
 import Link from "next/link";
 import { DollarSign, Globe } from "lucide-react";
 import { Button } from "../ui/button";
-export default function Footer() {
+import { getTranslations } from "next-intl/server";
+
+type FooterLink = {
+	map(arg0: (section: any, index: any) => React.JSX.Element): React.ReactNode;
+	title: string;
+	links: string[];
+};
+
+export default async function Footer() {
+	const t = await getTranslations();
+	const footerLinks = t.raw("FooterLinks") as FooterLink;
 	return (
 		<footer className="px-5 lg:px-12">
-			<div className="grid grid-cols-1 sm:grid-cols-2  gap-10 pb-10 border-b">
-				<div className="space-y-3.5 ">
-					<p className="font-medium">Support</p>
-					<ul className="space-y-2">
-						<li>
-							<Link href="/" className="hover:underline">
-								Help Center
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Get help with as safety issue
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								AirCover
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Anti-discrimination
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Cancellation options
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Disability support
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Report neighborhood
-							</Link>
-						</li>
-					</ul>
-				</div>
-				<div className="space-y-3.5 ">
-					<p className="font-medium">Hosting</p>
-					<ul className="space-y-2">
-						<li>
-							<Link href="/" className="hover:underline">
-								Help Center
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Get help with as safety issue
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								AirCover
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Anti-discrimination
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Cancellation options
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Disability support
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Report neighborhood
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Cancellation options
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Disability support
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Report neighborhood
-							</Link>
-						</li>
-					</ul>
-				</div>
-				<div className="space-y-3.5 ">
-					<p className="font-medium">Airbnb</p>
-					<ul className="space-y-2">
-						<li>
-							<Link href="/" className="hover:underline">
-								Help Center
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Get help with as safety issue
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								AirCover
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Anti-discrimination
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Cancellation options
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Disability support
-							</Link>
-						</li>
-						<li>
-							<Link href="/" className="hover:underline">
-								Report neighborhood
-							</Link>
-						</li>
-					</ul>
-				</div>
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 py-10">
+				{footerLinks.map((section, index) => (
+					<div key={index} className="space-y-4">
+						<h6 className="font-semibold">{section.title}</h6>
+						<ul className="space-y-2">
+							{section.links.map((link: string, i: number) => (
+								<li key={i}>
+									<Link href="#" className="hover:underline">
+										{link}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</div>
+				))}
 			</div>
 
 			<div className="hidden xl:flex items-center justify-between py-3 ">

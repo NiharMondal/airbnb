@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+
 import { Minus, Plus } from "lucide-react";
 
 type CounterSectionProps = {
@@ -21,14 +22,14 @@ export const CounterSection: React.FC<CounterSectionProps> = ({
 			<div>
 				<h6 className="font-semibold">{title}</h6>
 				{subtitle && (
-					<p className="text-gray-400 font-thin">{subtitle}</p>
+					<p className="text-gray-500 font-thin">{subtitle}</p>
 				)}
 			</div>
 
 			<div className="flex gap-x-4 items-center">
 				<Button
 					variant="outline"
-					className="size-10 rounded-full"
+					className="size-10 rounded-full cursor-pointer"
 					onClick={onDecrement}
 					disabled={value === 0} // optional safeguard
 				>
@@ -39,7 +40,7 @@ export const CounterSection: React.FC<CounterSectionProps> = ({
 
 				<Button
 					variant="outline"
-					className="size-10 rounded-full"
+					className="size-10 rounded-full cursor-pointer"
 					onClick={onIncrement}
 				>
 					<Plus />

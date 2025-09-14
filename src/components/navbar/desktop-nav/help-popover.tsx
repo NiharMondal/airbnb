@@ -4,13 +4,14 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { CircleQuestionMark, Menu } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import Image from "next/image";
 import { imageHelper } from "@/assets/images/images";
+import { useTranslations } from "next-intl";
 
 export default function HelpPopover() {
+	const t = useTranslations("Navbar.rightSide.help-center");
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -25,13 +26,13 @@ export default function HelpPopover() {
 				<ul className=" w-full *:hover:bg-accent">
 					<li className="px-5 py-1 inline-flex items-center gap-x-3 text-base font-light w-full">
 						<CircleQuestionMark />
-						<span>Help Center</span>
+						<span>{t("index")}</span>
 					</li>
 					<li className="px-5 py-2 flex items-center gap-x-3 text-base font-light w-full">
 						<p className="font-semibold text-sm">
-							Become a host <br />
+							{t("become-a-host")} <br />
 							<span className="text-xs font-light">
-								It's easy to start hosting and earn money
+								{t("short-info")}
 							</span>
 						</p>
 						<Image
@@ -42,11 +43,15 @@ export default function HelpPopover() {
 						/>
 					</li>
 
-					<li className="px-5 pt-2 border-t pb-1">Refer a host</li>
-					<li className="px-5 py-1">Find a co-host</li>
+					<li className="px-5 pt-2 border-t pb-1">
+						{t("refer-host")}
+					</li>
+					<li className="px-5 py-1">{t("cohost")}</li>
 
-					<li className="px-5 pb-2 border-b pt-1">Gift cards</li>
-					<li className="px-5 py-1">Log in or Sign up</li>
+					<li className="px-5 pb-2 border-b pt-1">
+						{t("gift-cards")}
+					</li>
+					<li className="px-5 py-1">{t("login-signup")}</li>
 				</ul>
 			</PopoverContent>
 		</Popover>

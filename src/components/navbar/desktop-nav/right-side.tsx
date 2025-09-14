@@ -1,11 +1,18 @@
 import React from "react";
-import { CustomModal } from "../common/custom-modal";
-import { Button } from "../ui/button";
+import { CustomModal } from "../../common/custom-modal";
+import { Button } from "../../ui/button";
 import ChoosingHost from "./choosing-host";
 import { Globe } from "lucide-react";
 import HelpPopover from "./help-popover";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import Language from "./language";
+
 export default function RightSide() {
+	const t = useTranslations("Navbar.rightSide");
+	const pathname = usePathname();
 	return (
 		<div className="flex items-center gap-x-3">
 			<div className="hidden xl:block">
@@ -15,7 +22,7 @@ export default function RightSide() {
 							variant="ghost"
 							className="rounded-full px-4 cursor-pointer"
 						>
-							Became a host
+							{t("become-a-host")}
 						</Button>
 					}
 					className="md:max-w-5xl min-h-[500px]"
@@ -24,19 +31,7 @@ export default function RightSide() {
 				</CustomModal>
 			</div>
 
-			<CustomModal
-				trigger={
-					<Button
-						variant="secondary"
-						className="rounded-full cursor-pointer size-10"
-					>
-						<Globe />
-					</Button>
-				}
-				className="md:max-w-5xl min-h-[500px]"
-			>
-				<ChoosingHost />
-			</CustomModal>
+			<Language />
 
 			<HelpPopover />
 		</div>

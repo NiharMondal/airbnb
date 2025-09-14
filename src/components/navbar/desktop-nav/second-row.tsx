@@ -1,57 +1,48 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar } from "../ui/calendar";
+import { Calendar } from "../../ui/calendar";
 import { CounterSection } from "./counter-section";
-import { Separator } from "../ui/separator";
-import { Button } from "../ui/button";
+import { Separator } from "../../ui/separator";
+import { Button } from "../../ui/button";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-type SecondRowProps = {
-	isScrolled: boolean;
-	isExpanded: boolean;
-};
-type GuestState = {
-	adults: number;
-	children: number;
-	infants: number;
-	pets: number;
-};
-
-type Action =
-	| { type: "INCREMENT"; payload: keyof GuestState }
-	| { type: "DECREMENT"; payload: keyof GuestState };
-
-const initialState: GuestState = {
-	adults: 1,
-	children: 0,
-	infants: 0,
-	pets: 0,
-};
-
-function reducer(state: GuestState, action: Action): GuestState {
-	switch (action.type) {
-		case "INCREMENT":
-			return { ...state, [action.payload]: state[action.payload] + 1 };
-		case "DECREMENT":
-			return {
-				...state,
-				[action.payload]: Math.max(state[action.payload] - 1, 0),
-			};
-		default:
-			return state;
-	}
-}
+import { useQuery } from "@/store/store";
+import { getToday } from "@/lib/date-helper";
+import { useTranslations } from "next-intl";
 
 type PopoverKey = "where" | "checkIn" | "checkOut" | "guests" | null;
 
 export default function SecondRow() {
-	const [date, setDate] = React.useState<Date | undefined>(new Date());
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const t = useTranslations("SecondRow");
+	const {
+		location,
+		checkIn,
+		checkOut,
+
+		updateCheckIn,
+		updateCheckOut,
+		updateLocation,
+
+		adults,
+		pets,
+		infants,
+		children,
+
+		incrementAdults,
+		incrementChildren,
+		incrementInfants,
+		incrementPets,
+		decrementAdults,
+		decrementChildren,
+		decrementInfants,
+		decrementPets,
+	} = useQuery((state) => state);
+
 	const [openPopover, setOpenPopover] = useState<PopoverKey>(null);
 
 	const handleOpenChange = (key: PopoverKey, isOpen: boolean) => {
@@ -64,11 +55,11 @@ export default function SecondRow() {
 	return (
 		<div
 			className={cn(
-				"h-16 rounded-full shadow-sm relative",
+				"h-16 rounded-full shadow-sm relative overflow-hidden",
 				openPopover ? "bg-accent" : "bg-white"
 			)}
 		>
-			<div className="flex items-center justify-between text-sm  lg:text-base font-medium h-full relative">
+			<div className="flex items-center justify-between text-sm font-medium h-full relative">
 				<Popover
 					open={openPopover === "where"}
 					onOpenChange={(isOpen) => handleOpenChange("where", isOpen)}
@@ -81,11 +72,13 @@ export default function SecondRow() {
 								: "hover:bg-accent"
 						)}
 					>
-						<p className="text-sm font-medium">Where</p>
+						<p className="text-sm font-medium">{t("where")}</p>
 						<input
 							type="text"
-							placeholder="Search your destination"
-							className="outline-0 border-0 py-1 w-[130px] lg:w-auto placeholder:font-normal lg:placeholder:font-extralight "
+							placeholder={t("placeholder")}
+							className="outline-0 border-0 py-1 w-[130px] lg:w-auto placeholder:font-light text-sm "
+							value={location}
+							onChange={(e) => updateLocation(e.target.value)}
 						/>
 					</PopoverTrigger>
 					<PopoverContent
@@ -96,6 +89,7 @@ export default function SecondRow() {
 					</PopoverContent>
 				</Popover>
 
+				{/** Check in */}
 				<Popover
 					open={openPopover === "checkIn"}
 					onOpenChange={(isOpen) =>
@@ -110,9 +104,9 @@ export default function SecondRow() {
 								: "hover:bg-accent"
 						)}
 					>
-						<p className="text-sm font-medium">Check in</p>
-						<span className="text-gray-500 font-normal">
-							Add dates
+						<p className="text-sm font-medium">{t("checkIn")}</p>
+						<span className="text-gray-500 font-light text-sm">
+							{t("checkInOutDescription")}
 						</span>
 					</PopoverTrigger>
 					<PopoverContent
@@ -134,10 +128,11 @@ export default function SecondRow() {
 							<TabsContent value="dates">
 								<Calendar
 									mode="single"
-									selected={date}
-									onSelect={setDate}
-									defaultMonth={date}
 									numberOfMonths={2}
+									selected={
+										checkIn ? new Date(checkIn) : undefined
+									}
+									onSelect={(date) => updateCheckIn(date!)}
 								/>
 							</TabsContent>
 							<TabsContent value="months">
@@ -149,6 +144,8 @@ export default function SecondRow() {
 						</Tabs>
 					</PopoverContent>
 				</Popover>
+
+				{/** Check out */}
 				<Popover
 					open={openPopover === "checkOut"}
 					onOpenChange={(isOpen) =>
@@ -163,9 +160,9 @@ export default function SecondRow() {
 								: "hover:bg-accent"
 						)}
 					>
-						<p className="text-sm font-medium">Check out</p>
-						<span className="text-gray-500 font-normal">
-							Add dates
+						<p className="text-sm font-medium">{t("checkOut")}</p>
+						<span className="text-gray-500 font-light text-sm">
+							{t("checkInOutDescription")}
 						</span>
 					</PopoverTrigger>
 					<PopoverContent
@@ -184,9 +181,13 @@ export default function SecondRow() {
 							<TabsContent value="dates">
 								<Calendar
 									mode="single"
-									selected={date}
-									onSelect={setDate}
-									defaultMonth={date}
+									disabled={{ before: getToday() }}
+									selected={
+										checkOut
+											? new Date(checkOut)
+											: undefined
+									}
+									onSelect={(date) => updateCheckOut(date)}
 									numberOfMonths={2}
 								/>
 							</TabsContent>
@@ -215,15 +216,17 @@ export default function SecondRow() {
 					>
 						<div className="flex items-center gap-x-4">
 							<div>
-								<p className="text-sm font-medium">Who</p>
-								<span className="text-gray-500 font-normal">
-									Add guests
+								<p className="text-sm font-medium">
+									{t("who")}
+								</p>
+								<span className="text-gray-500 font-light text-sm">
+									{t("guest")}
 								</span>
 							</div>
 							<Button
 								asChild
 								className={cn(
-									"duration-300",
+									"duration-300 ",
 									openPopover
 										? "flex-1 h-12 rounded-full"
 										: "size-12 rounded-full"
@@ -232,7 +235,11 @@ export default function SecondRow() {
 							>
 								<span className="inline-flex items-center">
 									<Search />
-									{openPopover ? "Search" : ""}
+									{openPopover ? (
+										"Search"
+									) : (
+										<span className="sr-only">Search</span>
+									)}
 								</span>
 							</Button>
 						</div>
@@ -245,73 +252,33 @@ export default function SecondRow() {
 							<CounterSection
 								title="Adults"
 								subtitle="Ages 13 or above"
-								value={state.adults}
-								onIncrement={() =>
-									dispatch({
-										type: "INCREMENT",
-										payload: "adults",
-									})
-								}
-								onDecrement={() =>
-									dispatch({
-										type: "DECREMENT",
-										payload: "adults",
-									})
-								}
+								value={adults}
+								onIncrement={() => incrementAdults(adults)}
+								onDecrement={() => decrementAdults(adults)}
 							/>
 							<Separator />
 							<CounterSection
 								title="Children"
 								subtitle="Ages 2 - 12"
-								value={state.children}
-								onIncrement={() =>
-									dispatch({
-										type: "INCREMENT",
-										payload: "children",
-									})
-								}
-								onDecrement={() =>
-									dispatch({
-										type: "DECREMENT",
-										payload: "children",
-									})
-								}
+								value={children}
+								onIncrement={() => incrementChildren(children)}
+								onDecrement={() => decrementChildren(children)}
 							/>
 							<Separator />
 							<CounterSection
 								title="Infants"
 								subtitle="Under 2"
-								value={state.infants}
-								onIncrement={() =>
-									dispatch({
-										type: "INCREMENT",
-										payload: "infants",
-									})
-								}
-								onDecrement={() =>
-									dispatch({
-										type: "DECREMENT",
-										payload: "infants",
-									})
-								}
+								value={infants}
+								onIncrement={() => incrementInfants(infants)}
+								onDecrement={() => decrementInfants(infants)}
 							/>
 							<Separator />
 							<CounterSection
 								title="Pets"
 								subtitle="Bringing a service animal?"
-								value={state.pets}
-								onIncrement={() =>
-									dispatch({
-										type: "INCREMENT",
-										payload: "pets",
-									})
-								}
-								onDecrement={() =>
-									dispatch({
-										type: "DECREMENT",
-										payload: "pets",
-									})
-								}
+								value={pets}
+								onIncrement={() => incrementPets(pets)}
+								onDecrement={() => decrementPets(pets)}
 							/>
 							<Separator />
 						</div>
