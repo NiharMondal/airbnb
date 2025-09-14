@@ -5,7 +5,9 @@ import { Button } from "../ui/button";
 import { getTranslations } from "next-intl/server";
 
 type FooterLink = {
-	map(arg0: (section: any, index: any) => React.JSX.Element): React.ReactNode;
+	map(
+		arg0: (section: FooterLink, index: number) => React.JSX.Element
+	): React.ReactNode;
 	title: string;
 	links: string[];
 };

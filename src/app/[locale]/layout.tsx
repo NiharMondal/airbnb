@@ -4,6 +4,7 @@ import React from "react";
 import { routing } from "@/i18n/routing";
 
 import { Poppins, Inter } from "next/font/google";
+import { Metadata } from "next";
 
 type Props = {
 	children: React.ReactNode;
@@ -20,7 +21,11 @@ const inter = Inter({
 	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 	subsets: ["latin"],
 });
-
+export const metadata: Metadata = {
+	title: "Airbnb | Vacations rentals, cabins, beach houses & more",
+	description:
+		"Airbnb is the best website you need to follow for hotel, rooms for rent.",
+};
 export default async function LocaleLayout({ children, params }: Props) {
 	// Wait for params
 	const { locale } = await params;

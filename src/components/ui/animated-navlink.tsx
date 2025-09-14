@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
-import { imageHelper } from "@/assets/images/images";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 

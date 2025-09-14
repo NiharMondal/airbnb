@@ -2,17 +2,14 @@ import React from "react";
 import { CustomModal } from "../../common/custom-modal";
 import { Button } from "../../ui/button";
 import ChoosingHost from "./choosing-host";
-import { Globe } from "lucide-react";
 import HelpPopover from "./help-popover";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Language from "./language";
 
 export default function RightSide() {
 	const t = useTranslations("Navbar.rightSide");
-	const pathname = usePathname();
+
 	return (
 		<div className="flex items-center gap-x-3">
 			<div className="hidden xl:block">

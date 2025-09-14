@@ -1,5 +1,4 @@
 import React from "react";
-import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 import { imageHelper } from "@/assets/images/images";
 import { Heart } from "lucide-react";
