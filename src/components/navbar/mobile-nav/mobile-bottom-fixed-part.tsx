@@ -20,7 +20,7 @@ export default function MobileBottom({ isScrolled }: Props) {
 		<motion.div
 			className={cn(
 				"duration-200",
-				isScrolled ? "hidden" : "fixed bottom-0 left-0 right-0"
+				isScrolled ? "hidden" : "fixed bottom-0 left-0 right-0 z-40"
 			)}
 			initial={{
 				y: -10,
@@ -44,21 +44,21 @@ export default function MobileBottom({ isScrolled }: Props) {
 					href="/"
 					className={cn(
 						"inline-flex flex-col items-center",
-						pathname === "/" ? "text-primary" : "text-gray-500"
+						pathname === "/en" ? "text-primary" : "text-gray-500"
 					)}
 				>
 					<Search />
 					<span
 						className={cn(
 							"text-xs",
-							pathname === "/" ? "font-medium" : "font-normal"
+							pathname === "/en" ? "font-medium" : "font-normal"
 						)}
 					>
 						Search
 					</span>
 				</Link>
 				<Link
-					href="/"
+					href="/en/wishlist"
 					className={cn(
 						"inline-flex flex-col items-center",
 						pathname === "/wishlist"
@@ -70,7 +70,7 @@ export default function MobileBottom({ isScrolled }: Props) {
 					<span
 						className={cn(
 							"text-xs",
-							pathname === "/wishlist"
+							pathname === "/en/wishlist"
 								? "font-medium"
 								: "font-normal"
 						)}
@@ -79,7 +79,7 @@ export default function MobileBottom({ isScrolled }: Props) {
 					</span>
 				</Link>
 				<Link
-					href="/"
+					href="/en/trips"
 					className={cn(
 						"inline-flex flex-col items-center",
 						pathname === "/trips" ? "text-primary" : "text-gray-500"
@@ -89,7 +89,7 @@ export default function MobileBottom({ isScrolled }: Props) {
 					<span
 						className={cn(
 							"text-xs",
-							pathname === "/trips"
+							pathname === "/en/trips"
 								? "font-medium"
 								: "font-normal"
 						)}

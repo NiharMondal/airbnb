@@ -58,7 +58,7 @@ export default function Hotels({ title }: HotelProps) {
 		],
 	};
 	return (
-		<Container className="py-5 ">
+		<Container className="py-5">
 			<div className="flex items-center justify-between">
 				<p className="text-xl font-semibold">{title}</p>
 				<CustomArrows
@@ -70,7 +70,7 @@ export default function Hotels({ title }: HotelProps) {
 				<Slider
 					ref={sliderRef}
 					{...settings}
-					className="overflow-hidden pr-2"
+					className="overflow-hidden xl:pr-2"
 				>
 					<HotelCard />
 					<HotelCard />
